@@ -1,0 +1,2 @@
+npm i -S bcryptjs dotenv express express-async-errors jsonwebtoken pf reflect-metadata typeorm zod
+npm i -D @types/bcryptjs @types/express @types/jsonwebtoken ts-node-dev typescript
