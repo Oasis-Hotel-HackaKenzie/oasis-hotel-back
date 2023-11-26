@@ -13,6 +13,5 @@ export default class EmergencyContacts {
     telephone: string
 
     @OneToOne(() => User, (user) => user.emergencyContact)
-    @JoinColumn()
     user: User
 }

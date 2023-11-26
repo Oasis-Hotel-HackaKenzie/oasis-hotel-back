@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Occupation from "./occupations.entity";
 import Reserve from "./reservations.entity";
 import EmergencyContacts from "./emergencyContact.entity";
+import { getRounds, hashSync } from "bcryptjs";
 
 @Entity('users')
 export default class User {
@@ -14,7 +15,7 @@ export default class User {
     @Column({length: 11, unique: true})
     cpf: string
 
-    @Column({length: 128})
+    @Column({type: 'varchar', length: 128})
     password: string
 
     @Column({length: 128, unique: true})
@@ -39,6 +40,7 @@ export default class User {
     updatedAt: string
 
     @OneToOne(() => EmergencyContacts, (emergency_contacts) => emergency_contacts.user)
+    @JoinColumn()
     emergencyContact: EmergencyContacts
 
     @OneToMany(() => Occupation, (occupations) => occupations.user)
@@ -46,4 +48,13 @@ export default class User {
 
     @OneToMany(() => Reserve, (reserver) => reserver.user)
     reserves: Reserve[]
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword(){
+        const isEncrypted = getRounds(this.password)
+        if(!isEncrypted){
+            this.password= hashSync(this.password,10)
+        }
+    }
 }
