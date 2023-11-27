@@ -5,3 +5,5 @@ export const emergencyContactSchema = z.object({
     name: z.string().max(128),
     telephone: z.string().max(13)
 })
+
+export const updateEmergencySchema = emergencyContactSchema.partial()
