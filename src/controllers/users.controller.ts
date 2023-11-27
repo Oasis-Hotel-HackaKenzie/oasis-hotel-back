@@ -14,7 +14,6 @@ export const readAllUsersController = async (req: Request, res: Response): Promi
 }
 
 export const readUserController = async (req: Request, res: Response): Promise<Response> => {
-    console.log(req.params.id)
     const user = await readUserService(req.params.id)
     
     return res.status(200).json(user)
