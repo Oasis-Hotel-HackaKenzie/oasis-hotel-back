@@ -2,7 +2,6 @@ import { emergencyContactRepository, userRepository } from "../repositories"
 import { userReturnListSchema, userReturnSchema } from "../schemas/users.schema"
 
 export const createUserService = async (data: any): Promise<any> => {
-
     const emergencyContact = await emergencyContactRepository.save(data.emergency_contact)
     const user = await userRepository.save({...data, emergencyContact})
 
