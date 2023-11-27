@@ -19,5 +19,16 @@ export const userSchema = z.object({
 export const userReturnSchema = userSchema.omit({
     password: true
 })
+export const createUserSchema = userSchema.pick({
+    name: true,
+    email: true,
+    password: true,
+    admin: true
+})
 
+export const omitId = userSchema.pick({
+    id: true,
+    
+  })
 export const userReturnListSchema = userReturnSchema.array()
+export const updateUserSchema = createUserSchema.partial()
